@@ -71,3 +71,19 @@ Capabilities: Approve/Deny requests, View full history
 User: user@test.com
 Password: 123456
 Capabilities: Create requests, Edit pending requests
+
+### 📂 Project Structure
+
+index.php - Secure Login page.
+
+dashboard.php - Main view customized by user role.
+
+create_order.php - Form for new requests.
+
+edit_order.php - Edit form for pending requests (Version Control).
+
+detalhes_pedido.php - Detailed view with Audit History.
+
+actions.php - Backend controller for processing logic and logging actions.
+
+db/init.sql - Database schema and initial seed data
