@@ -14,6 +14,7 @@ A robust **Request Management System** built with **Pure PHP** and **MySQL**, de
 ## ✨ Key Features
 
 ### 1. Role-Based Access Control (RBAC)
+
 * **Admin:** Can view all requests, approve/deny requests, and view full audit logs.
 * **Employee (User):** Can create requests, edit their own pending requests, and track status.
 
@@ -36,6 +37,12 @@ A robust **Request Management System** built with **Pure PHP** and **MySQL**, de
 
 ### 1. Clone & Run
 Run these commands in the project root:
+
+Clone the repository
+
+```bash
+git clone https://github.com/ADSJ-code/sistema-protocolo.git
+```
 
 Build and start the containers
 
