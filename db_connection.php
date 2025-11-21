@@ -1,11 +1,11 @@
 <?php
-$host = getenv('DB_HOST') ?: 'db';
-$user = getenv('DB_USER') ?: 'protocolouser';
-$pass = getenv('DB_PASSWORD') ?: '123456';
-$name = getenv('DB_NAME') ?: 'protocolodb';
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER'];
+$pass = $_ENV['DB_PASSWORD'];
+$name = $_ENV['DB_NAME'];
 
 $conn = new mysqli($host, $user, $pass, $name);
 
 if ($conn->connect_error) {
-    die($conn->connect_error);
+    die("Erro de Conexão com o Banco: " . $conn->connect_error);
 }
