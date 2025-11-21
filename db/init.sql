@@ -1,4 +1,3 @@
-cat << EOF > db/init.sql
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -6,4 +5,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha VARCHAR(255) NOT NULL,
     role VARCHAR(50) DEFAULT 'user'
 );
-EOF
+
+INSERT INTO usuarios (nome, email, senha, role) VALUES 
+('Admin Teste', 'admin@teste.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'admin');
