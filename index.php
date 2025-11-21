@@ -2,6 +2,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 require_once 'db_connection.php';
 
 $erro_login = "";
@@ -11,29 +13,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST['password'];
 
     if (!empty($email) && !empty($senha)) {
-        try {
-            
-            $stmt = $conn->prepare("SELECT id, nome, email, cargo FROM utilizadores WHERE email = :email AND senha = :senha");
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':senha', $senha);
+        $stmt = $conn->prepare("SELECT id, nome, email, senha, role FROM usuarios WHERE email = ?");
 
-            $stmt->execute();
+        if ($stmt === FALSE) {
+            die($conn->error);
+        }
 
-            if ($stmt->rowCount() == 1) {
-                $utilizador = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
+        if ($resultado->num_rows == 1) {
+            $utilizador = $resultado->fetch_assoc();
+
+            if (password_verify($senha, $utilizador['senha'])) {
                 $_SESSION['utilizador_id'] = $utilizador['id'];
                 $_SESSION['utilizador_nome'] = $utilizador['nome'];
-                $_SESSION['utilizador_cargo'] = $utilizador['cargo'];
+                $_SESSION['utilizador_role'] = $utilizador['role'];
 
                 header("location: dashboard.php");
                 exit;
             } else {
                 $erro_login = "Email ou senha inválidos.";
             }
-        } catch(PDOException $e) {
-            die("ERRO: Não foi possível executar a consulta. " . $e->getMessage());
+        } else {
+            $erro_login = "Email ou senha inválidos.";
         }
+        $stmt->close();
     } else {
         $erro_login = "Por favor, preencha todos os campos.";
     }
