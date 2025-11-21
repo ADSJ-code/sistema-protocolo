@@ -1,0 +1,22 @@
+services:
+  web:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=protocolodb
+      - DB_USER=protocolouser
+      - DB_PASSWORD=123456
+
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=protocolodb
+      - MYSQL_USER=protocolouser
+      - MYSQL_PASSWORD=123456
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql

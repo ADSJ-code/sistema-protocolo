@@ -1,16 +1,11 @@
 <?php
-session_start();
+$host = getenv('DB_HOST') ?: 'db';
+$user = getenv('DB_USER') ?: 'protocolouser';
+$pass = getenv('DB_PASSWORD') ?: '123456';
+$name = getenv('DB_NAME') ?: 'protocolodb';
 
-$servername = "127.0.0.1";
-$username = "root";
-$password = "root1234";
-$dbname = "sistema_protocolo_db";
+$conn = new mysqli($host, $user, $pass, $name);
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // Define o modo de erro do PDO para exceção
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("A conexão falhou: " . $e->getMessage());
+if ($conn->connect_error) {
+    die($conn->connect_error);
 }
-?>
