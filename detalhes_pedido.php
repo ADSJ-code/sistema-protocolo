@@ -8,6 +8,7 @@ if (!isset($_SESSION['user_id']) || !isset($_GET['id'])) {
 }
 
 $id = $_GET['id'];
+$current_user_id = $_SESSION['user_id'];
 $user_role = $_SESSION['user_role'];
 
 $stmt = $conn->prepare("SELECT orders.*, users.name as creator_name FROM orders JOIN users ON orders.user_id = users.id WHERE orders.id = ?");
@@ -38,14 +39,23 @@ $logs = $stmt_logs->get_result();
         <div class="grid">
             <article>
                 <header>
-                    <strong>Status: 
-                    <?php 
-                        $color = 'black';
-                        if($order['status'] == 'Approved') $color = 'green';
-                        if($order['status'] == 'Denied') $color = 'red';
-                        echo "<span style='color:$color'>" . $order['status'] . "</span>";
-                    ?>
-                    </strong>
+                    <div class="grid">
+                        <div>
+                            <strong>Status: 
+                            <?php 
+                                $color = 'black';
+                                if($order['status'] == 'Approved') $color = 'green';
+                                if($order['status'] == 'Denied') $color = 'red';
+                                echo "<span style='color:$color'>" . $order['status'] . "</span>";
+                            ?>
+                            </strong>
+                        </div>
+                        <div style="text-align: right;">
+                            <?php if($order['status'] == 'Pending' && ($current_user_id == $order['user_id'] || $user_role == 'admin')): ?>
+                                <a href="edit_order.php?id=<?php echo $order['id']; ?>" role="button" class="outline">Edit Request</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </header>
                 <h3><?php echo htmlspecialchars($order['title']); ?></h3>
                 <p><?php echo nl2br(htmlspecialchars($order['description'])); ?></p>

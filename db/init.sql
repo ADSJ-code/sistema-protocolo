@@ -27,10 +27,8 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- Admin User (password: 123456)
 INSERT INTO users (name, email, password, role) VALUES 
-('Admin Master', 'admin@teste.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'admin');
+('Admin Master', 'admin@test.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'admin');
 
--- Common User (password: 123456)
 INSERT INTO users (name, email, password, role) VALUES 
-('John Employee', 'user@teste.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'user');
+('John Employee', 'user@test.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'user');
