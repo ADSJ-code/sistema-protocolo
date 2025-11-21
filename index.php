@@ -31,8 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['utilizador_nome'] = $utilizador['nome'];
                 $_SESSION['utilizador_role'] = $utilizador['role'];
 
-                header("location: dashboard.php");
-                exit;
+                die("LOGIN SUCESSO! O problema está no dashboard.php");
             } else {
                 $erro_login = "Email ou senha inválidos.";
             }
