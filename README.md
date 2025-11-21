@@ -1,47 +1,73 @@
-# Protocol System
+# Protocol System with Audit Trail
 
-## Objective
-Demonstrate backend proficiency in **Role-Based Access Control (RBAC)** and secure session management using pure PHP and MySQL.
+## 🚀 Objective
+A robust **Request Management System** built with **Pure PHP** and **MySQL**, demonstrating advanced backend concepts such as **Role-Based Access Control (RBAC)**, **Audit Logging**, and **Version Control** for data integrity.
 
-## Stack
-* Pure PHP
-* MySQL (Containerized)
-* Apache Web Server (Containerized)
+## 🛠️ Tech Stack
+* **Backend:** PHP 7.4 (Native)
+* **Database:** MySQL 5.7
+* **Infrastructure:** Docker & Docker Compose
+* **Frontend:** Pico.css (Semantic HTML)
 
 ---
 
-## ⚡ Quick Start (For Recruiters/Evaluators)
+## ✨ Key Features
 
-This project is fully containerized and starts with a single command.
+### 1. Role-Based Access Control (RBAC)
+* **Admin:** Can view all requests, approve/deny requests, and view full audit logs.
+* **Employee (User):** Can create requests, edit their own pending requests, and track status.
+
+### 2. Audit Trail & Version Control
+* Every action (Create, Edit, Approve, Deny) is logged in the database.
+* **Edit Tracking:** If a user edits a request, the system records exactly *what* changed (e.g., "Title updated, Description updated").
+* **Transparency:** The dashboard clearly shows who created the request and who performed the last action.
+
+### 3. Security
+* Passwords are hashed using `password_verify()`.
+* SQL Injection protection using Prepared Statements (`mysqli`).
+* Session hijacking protection.
+
+---
+
+## ⚡ Quick Start
 
 ### Prerequisites
 * Docker and Docker Compose installed.
 
 ### 1. Clone & Run
+Run these commands in the project root:
 
-Clone the repository and start the services:
-
-```bash
-git clone https://github.com/ADSJ-code/sistema-protocolo.git
-```
-```bash
-cd sistema-protocolo
-```
-
-Build and run the containers
+Build and start the containers
 
 ```bash
 docker-compose up --build -d
 ```
 
-2. Access Application
 The application will be available at: http://localhost
 
-🔑 Demo Access
-Use these credentials for immediate access to the administrative dashboard:
+2. database Reset (Important)
+If you need to reset the database to the initial state (clearing all created orders), run:
 
-User: admin@teste.com
+```bash
+docker-compose down -v
+```
 
+and 
+
+```bash
+docker-compose up --build -d
+```
+
+### 🔑 Demo Credentials
+
+Use the following accounts to test different access levels:
+
+
+Admin: admin@test.com
+Password: 123456,
+Capabilities: Approve/Deny requests, View full history
+
+
+User: user@test.com
 Password: 123456
-
-(Note: The system uses PHP's password_hash() for secure storage. The plain-text password '123456' is defined for the test user in the ./db/init.sql file.)
+Capabilities: Create requests, Edit pending requests
