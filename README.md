@@ -38,13 +38,18 @@ A robust **Request Management System** built with **Pure PHP** and **MySQL**, de
 ### 1. Clone & Run
 Run these commands in the project root:
 
-Clone the repository
+# 1. Clone the repository
 
 ```bash
 git clone https://github.com/ADSJ-code/sistema-protocolo.git
 ```
+# 2. Navigate to the project folder
 
-Build and start the containers
+```bash
+cd sistema-protocolo
+```
+
+# 3. Build and start the containers
 
 ```bash
 docker-compose up --build -d
