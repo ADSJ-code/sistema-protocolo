@@ -8,16 +8,29 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     title VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
     status VARCHAR(50) DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-INSERT INTO users (name, email, password, role) VALUES 
-('Admin User', 'admin@teste.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'admin');
+CREATE TABLE IF NOT EXISTS audit_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    user_id INT NOT NULL,
+    action VARCHAR(50) NOT NULL,
+    details TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
 
-INSERT INTO orders (title, description, status) VALUES 
-('Server Maintenance', 'Routine checkup of the main Linux server.', 'Pending'),
-('Update Firewall Rules', 'Block incoming traffic from port 8080.', 'In Progress'),
-('Employee Onboarding', 'Setup laptop and accounts for new hire (John Doe).', 'Completed');
+-- Admin User (password: 123456)
+INSERT INTO users (name, email, password, role) VALUES 
+('Admin Master', 'admin@teste.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'admin');
+
+-- Common User (password: 123456)
+INSERT INTO users (name, email, password, role) VALUES 
+('John Employee', 'user@teste.com', '$2y$10$K88aSxatRyN61MAxtc9zE.1u3zCKwvyzElcP3sFLU0FzPAw2mVf6C', 'user');
